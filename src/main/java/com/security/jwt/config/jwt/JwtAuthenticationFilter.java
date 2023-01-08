@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             // authenticate() 함수가 호출 되면 인증 프로바이더가 유저 디테일 서비스의
             // loadUserByUsername(토큰의 첫번째 파라메터) 를 호출하고
             // UserDetails 를 리턴받아서 토큰의 두번째 파라메터(credential)과
-            // UserDetails(DB값)의 getPassword()함수로 비교해서 동일하면
+            // UserDetails(DB값)의 getPassword()함수로 비교해서 동일하면 (https://velog.io/@aaronddy/%EC%9D%B8%EC%A6%9DAuthentication%EA%B3%BC-%EC%9D%B8%EA%B0%80Authorization)
             // Authentication 객체를 만들어서 필터체인으로 리턴해준다.
             // Tip: 인증 프로바이더의 디폴트 서비스는 UserDetailsService 타입
             // Tip: 인증 프로바이더의 디폴트 암호화 방식은 BCryptPasswordEncoder
@@ -76,7 +76,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withExpiresAt(new Date(System.currentTimeMillis() + (60000*30))) //10분
                 .withClaim("id", principalDetails.getUserEntity().getId())
                 .withClaim("username", principalDetails.getUserEntity().getUsername())
-                .sign(Algorithm.HMAC512("cos"));
+                .sign(Algorithm.HMAC512("cos")); //secret
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
     }

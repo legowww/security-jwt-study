@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity
@@ -16,10 +13,8 @@ import javax.persistence.Id;
 @ToString
 public class UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private long id;
     private String username;
     private String password;
-    private UserRole role;
+    @Column(name = "my_role") @Enumerated(EnumType.STRING) private UserRole role;
 }
